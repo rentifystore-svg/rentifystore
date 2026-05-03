@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Rentify — High-Fidelity App Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: "Inter", system-ui, -apple-system, sans-serif;
+      --bg-page: #e8ecf1;
+      --bg-app: #f0f3f7;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --accent: #00a86b;
+      --accent-hover: #008f5c;
+      --accent-soft: rgba(0, 168, 107, 0.12);
+      --whatsapp: #25d366;
+      --whatsapp-hover: #1ebe57;
+      --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+      --radius: 14px;
+      --radius-lg: 20px;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-fast: 0.2s var(--ease);
+      --transition-screen: 0.38s var(--ease);
+      --safe-top: max(12px, env(safe-area-inset-top, 0px));
+      --safe-bottom: max(12px, env(safe-area-inset-bottom, 0px));
+      --safe-x: max(16px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+      --iphone-w: min(390px, 100vw - 32px);
+      --iphone-h: min(844px, 88vh);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: linear-gradient(165deg, #0d1f17 0%, #1a3d2e 40%, var(--bg-page) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* —— Page shell —— */
+    .page-wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 48px 20px 64px;
+    }
+    .page-hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .page-hero h1 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin: 0 0 8px;
+    }
+    .page-hero p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.95rem;
+    }
+
+    .demo-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    /* —— iPhone frame —— */
+    .iphone-frame {
+      width: var(--iphone-w);
+      height: var(--iphone-h);
+      background: linear-gradient(145deg, #1c1c1e 0%, #2c2c2e 100%);
+      border-radius: 48px;
+      padding: 14px;
+      box-shadow:
+        0 32px 64px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+      position: relative;
+    }
+    .iphone-frame::before {
+      content: "";
+      position: absolute;
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 34px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 5;
+      pointer-events: none;
+    }
+    .iphone-screen {
+      background: #000;
+      border-radius: 38px;
+      overflow: hidden;
+      height: 100%;
+      position: relative;
+    }
+
+    /* —— App viewport —— */
+    .app-root {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-app);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .status-bar {
+      flex-shrink: 0;
+      height: calc(28px + var(--safe-top));
+      padding: var(--safe-top) 20px 6px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .status-bar .icons {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      color: var(--text);
+    }
+    .status-bar .icons span {
+      width: 18px;
+      height: 10px;
+      border-radius: 2px;
+      background: var(--text);
+      opacity: 0.85;
+    }
+
+    .app-header {
+      flex-shrink: 0;
+      padding: 12px 18px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 52px;
+    }
+    .app-header.backable { padding-left: 10px; }
+    .btn-icon {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: transparent;
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: background var(--transition-fast), opacity var(--transition-fast);
+    }
+    .btn-icon:hover { background: var(--bg-app); }
+    .btn-icon:active { opacity: 0.7; }
+    .app-header-text { flex: 1; min-width: 0; }
+    .app-header-text h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .app-header-text p {
+      margin: 2px 0 0;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .app-main {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 0 calc(72px + var(--safe-bottom));
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition:
+        opacity var(--transition-screen),
+        transform var(--transition-screen);
+    }
+    .screen.is-active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .screen-inner {
+      padding: 16px 18px 24px;
+      padding-left: max(18px, var(--safe-x));
+      padding-right: max(18px, var(--safe-x));
+    }
+
+    /* —— Splash —— */
+    .splash-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: var(--surface);
+      padding: 32px;
+    }
+    .splash-logo {
+      width: 80px;
+      height: 80px;
+      background: var(--accent);
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      box-shadow: 0 12px 32px rgba(0, 168, 107, 0.28);
+      opacity: 0;
+      transform: translateY(8px);
+      animation: splashIn 0.55s var(--ease) 0.15s forwards;
+    }
+    .splash-screen h1 {
+      margin: 0 0 8px;
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      opacity: 0;
+      animation: splashIn 0.5s var(--ease) 0.35s forwards;
+    }
+    .splash-screen .tagline {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.45;
+      opacity: 0;
+      animation: splashIn 0.5s var(--ease) 0.5s forwards;
+    }
+    .splash-screen .sub {
+      margin: 8px 0 0;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      opacity: 0;
+      animation: splashIn 0.45s var(--ease) 0.65s forwards;
+    }
+    @keyframes splashIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* —— Home / Dashboard —— */
+    .search-row {
+      margin-bottom: 18px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 12px 14px 12px 40px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      background: var(--surface);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='%2394a3b8' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 14px center;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin: 0 0 12px;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .category-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+    .category-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: rgba(0, 168, 107, 0.25);
+    }
+    .category-card:active { transform: scale(0.98); }
+    .category-card img {
+      width: 100%;
+      height: 88px;
+      object-fit: cover;
+      display: block;
+    }
+    .category-card .meta {
+      padding: 10px 12px 12px;
+    }
+    .category-card .emoji { font-size: 1.1rem; margin-bottom: 4px; }
+    .category-card h3 {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+    .category-card p {
+      margin: 4px 0 0;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    .horizontal-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin: 0 -4px 20px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .horizontal-scroll::-webkit-scrollbar { height: 4px; }
+    .horizontal-scroll::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+    .chip-card {
+      flex: 0 0 140px;
+      scroll-snap-align: start;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+    }
+    .chip-card:hover { box-shadow: var(--shadow-md); }
+    .chip-card:active { transform: scale(0.97); }
+    .chip-card img { width: 100%; height: 72px; object-fit: cover; }
+    .chip-card .t { padding: 8px 10px; font-size: 0.72rem; font-weight: 600; }
+
+    /* —— Waitlist block (in-app) —— */
+    .waitlist-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      color: #fff;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow-md);
+    }
+    .waitlist-card h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .waitlist-card .lead {
+      margin: 0 0 14px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.45;
+    }
+    .phone-field {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      transition: border-color var(--transition-fast), background var(--transition-fast);
+    }
+    .phone-field::placeholder { color: rgba(255, 255, 255, 0.45); }
+    .phone-field:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .btn-whatsapp {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 16px;
+      border: none;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--whatsapp);
+      color: #fff;
+      transition: background var(--transition-fast), transform var(--transition-fast), opacity var(--transition-fast);
+    }
+    .btn-whatsapp:hover { background: var(--whatsapp-hover); }
+    .btn-whatsapp:active { transform: scale(0.99); opacity: 0.95; }
+    .btn-whatsapp svg { flex-shrink: 0; }
+
+    /* —— Listing grid —— */
+    .listing-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .product-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 0;
+      cursor: pointer;
+      transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+    .product-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: rgba(0, 168, 107, 0.2);
+    }
+    .product-card img {
+      width: 100%;
+      height: 100%;
+      min-height: 118px;
+      object-fit: cover;
+      display: block;
+    }
+    .product-card .body {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .product-card h4 {
+      margin: 0 0 4px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+    .product-card .desc {
+      margin: 0 0 8px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .product-card .row {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .price {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .btn-rent {
+      flex-shrink: 0;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition-fast), opacity var(--transition-fast);
+    }
+    .btn-rent:hover { background: var(--accent-hover); }
+    .btn-rent:active { opacity: 0.9; }
+
+    /* —— Detail —— */
+    .detail-hero {
+      margin: -16px -18px 0;
+      width: calc(100% + 36px);
+      max-width: none;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+    }
+    .detail-body { padding-top: 16px; }
+    .detail-body h2 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .detail-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .detail-copy {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin: 0 0 16px;
+    }
+    .spec-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .spec-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 14px;
+      font-size: 0.78rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .spec-list li:last-child { border-bottom: none; }
+    .spec-list span:first-child { color: var(--text-muted); }
+    .spec-list span:last-child { font-weight: 600; color: var(--text); }
+
+    .sticky-cta {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 0 4px;
+      background: linear-gradient(to top, var(--bg-app) 70%, transparent);
+    }
+    .btn-primary-lg {
+      width: 100%;
+      padding: 14px 18px;
+      border: none;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition-fast), opacity var(--transition-fast);
+    }
+    .btn-primary-lg:hover { background: var(--accent-hover); }
+    .btn-secondary-lg {
+      width: 100%;
+      margin-top: 8px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast);
+    }
+    .btn-secondary-lg:hover { background: var(--bg-app); }
+
+    /* —— Messages —— */
+    .msg-list { display: flex; flex-direction: column; gap: 10px; }
+    .msg-row {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+    .msg-row:hover { box-shadow: var(--shadow-sm); border-color: rgba(0, 168, 107, 0.15); }
+    .msg-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .msg-body { min-width: 0; flex: 1; }
+    .msg-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .msg-name { font-weight: 600; font-size: 0.88rem; }
+    .msg-time { font-size: 0.68rem; color: var(--text-muted); flex-shrink: 0; }
+    .msg-preview {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .msg-row.unread {
+      border-left: 3px solid var(--accent);
+    }
+
+    /* —— Profile —— */
+    .profile-hero {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 20px;
+      margin-bottom: 16px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .profile-hero img {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent-soft);
+      margin-bottom: 12px;
+    }
+    .profile-hero h2 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .profile-hero .loc {
+      margin: 4px 0 0;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .profile-hero .bio {
+      margin: 12px 0 0;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 8px;
+      text-align: center;
+    }
+    .stat b { display: block; font-size: 1.05rem; color: var(--accent); }
+    .stat span { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .profile-section-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin: 0 0 10px;
+    }
+    .my-listings {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .mini-listing {
+      display: flex;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px;
+      align-items: center;
+      transition: box-shadow var(--transition-fast);
+    }
+    .mini-listing:hover { box-shadow: var(--shadow-sm); }
+    .mini-listing img {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+    .mini-listing div { min-width: 0; flex: 1; }
+    .mini-listing h4 { margin: 0; font-size: 0.82rem; font-weight: 600; }
+    .mini-listing p { margin: 2px 0 0; font-size: 0.7rem; color: var(--text-muted); }
+
+    /* —— Map / Nearby (static illustrative) —— */
+    .map-block {
+      height: 160px;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.06) 0%, transparent 40%),
+        url("https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=70") center/cover;
+      border: 1px solid var(--border);
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .map-pin {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* —— Bottom nav —— */
+    .tab-bar {
+      flex-shrink: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      padding: 8px 10px calc(8px + var(--safe-bottom));
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 4px;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 0.62rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 10px;
+      transition: color var(--transition-fast), background var(--transition-fast);
+    }
+    .tab:hover { background: var(--bg-app); color: var(--text); }
+    .tab.is-active {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .tab .ic { font-size: 1.15rem; line-height: 1; }
+
+    /* —— Page waitlist —— */
+    .page-waitlist {
+      margin-top: 48px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .page-waitlist h2 {
+      margin: 0 0 8px;
+      color: #fff;
+      font-size: 1.25rem;
+      text-align: center;
+    }
+    .page-waitlist > p {
+      margin: 0 0 20px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .page-waitlist form { display: flex; flex-direction: column; gap: 12px; }
+    .page-waitlist .phone-field {
+      margin-bottom: 0;
+    }
+    .hint {
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin: 16px 0 0;
+    }
+
+    .scroll-page-cta {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .scroll-page-cta button {
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 10px 20px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast);
+    }
+    .scroll-page-cta button:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <header class="page-hero">
+      <h1>Rentify App Demo</h1>
+      <p>High-fidelity mobile experience — browse categories, listings, and join the waitlist.</p>
+    </header>
+
+    <div class="demo-row">
+      <div class="iphone-frame" id="iphone-frame">
+        <div class="iphone-screen">
+          <div class="app-root" id="app-root">
+            <div class="status-bar">
+              <span id="status-time">9:41</span>
+              <div class="icons" aria-hidden="true">
+                <span style="opacity:0.35;width:16px"></span>
+                <span style="width:24px;height:12px;border-radius:3px;opacity:0.9"></span>
+              </div>
+            </div>
+
+            <header class="app-header" id="app-header">
+              <div class="app-header-text">
+                <h2 id="header-title">Rentify</h2>
+                <p id="header-sub">Peer-to-peer rentals</p>
+              </div>
+            </header>
+
+            <main class="app-main" id="app-main"></main>
+
+            <nav class="tab-bar" id="tab-bar" hidden>
+              <button type="button" class="tab is-active" data-tab="home" aria-label="Home">
+                <span class="ic" aria-hidden="true">⌂</span>
+                Home
+              </button>
+              <button type="button" class="tab" data-tab="nearby" aria-label="Nearby">
+                <span class="ic" aria-hidden="true">◎</span>
+                Nearby
+              </button>
+              <button type="button" class="tab" data-tab="messages" aria-label="Messages">
+                <span class="ic" aria-hidden="true">💬</span>
+                Messages
+              </button>
+              <button type="button" class="tab" data-tab="profile" aria-label="Profile">
+                <span class="ic" aria-hidden="true">👤</span>
+                Profile
+              </button>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-page-cta">
+        <button type="button" id="btn-scroll-waitlist">Join waitlist below</button>
+      </div>
+    </div>
+
+    <section class="page-waitlist" id="waitlist-section" aria-labelledby="waitlist-heading">
+      <h2 id="waitlist-heading">Join the Rentify waitlist</h2>
+      <p>Get launch alerts and curated drops in your city. We only use your number for Rentify updates.</p>
+      <form id="waitlist-form" name="waitlist" data-netlify="true">
+        <label class="sr-only" for="page-phone">Phone number</label>
+        <input
+          class="phone-field"
+          type="tel"
+          id="page-phone"
+          name="phone"
+          inputmode="numeric"
+          autocomplete="tel"
+          placeholder="Phone number (10 digits)"
+          maxlength="10"
+          pattern="[0-9]{10}"
+          required
+        />
+        <button type="submit" class="btn-primary-lg" style="background:var(--accent)">Reserve my spot</button>
+        <a
+          class="btn-whatsapp"
+          href="https://wa.me/15551234567?text=I%20want%20to%20follow%20the%20Rentify%20Store%20channel"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.44 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Follow the Rentify Store channel on WhatsApp
+        </a>
+      </form>
+      <p class="hint">Replace the WhatsApp link with your real business number and pre-filled message when you go live.</p>
+    </section>
+  </div>
+
+  <style>
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+
+  <script>
+(function () {
+  "use strict";
+
+  const UNSPLASH = (id, w, h) =>
+    `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&h=${h}&q=80`;
+
+  const CATEGORIES = [
+    {
+      id: "repair",
+      emoji: "🛠",
+      title: "Home Repair & Maintenance",
+      blurb: "Tools, ladders, drills, and pro-grade gear.",
+      cover: UNSPLASH("photo-1504148455328-c376907d081c", 400, 300),
+      scroll: UNSPLASH("photo-1581858726788-75bc2f9d0aa6", 280, 180),
+      items: [
+        {
+          id: "r1",
+          title: "DeWalt 20V Brushless Drill Kit",
+          desc: "Two batteries, charger, and contractor bag. Ideal for shelves, fixtures, and weekend projects.",
+          price: "₹450 / day",
+          img: UNSPLASH("photo-1504148455328-c376907d081c", 600, 480),
+          specs: [
+            ["Condition", "Like new"],
+            ["Includes", "2 batteries, charger, bag"],
+            ["Pickup", "Bandra West · 2 km"],
+            ["Owner rating", "4.9 ★"],
+          ],
+          detail:
+            "Lightweight compact drill with hammer mode off for indoor work. Owner is a licensed contractor—tool is cleaned and inspected between rentals.",
+        },
+        {
+          id: "r2",
+          title: "Fiberglass Extension Ladder (24 ft)",
+          desc: "Type IA duty rating. Perfect for gutter cleaning, paint touch-ups, and exterior lighting.",
+          price: "₹380 / day",
+          img: UNSPLASH("photo-1621905252507-b35492cc74b4", 600, 480),
+          specs: [
+            ["Condition", "Excellent"],
+            ["Weight rating", "300 lb"],
+            ["Pickup", "Andheri East"],
+            ["Deposit", "₹2,000 hold"],
+          ],
+          detail:
+            "Non-conductive rails; slip-resistant feet. Delivery available within 8 km for a small fee.",
+        },
+        {
+          id: "r3",
+          title: "Rotary Laser Level + Tripod",
+          desc: "Self-leveling cross-line laser for tiling, cabinetry, and suspended ceilings.",
+          price: "₹520 / day",
+          img: UNSPLASH("photo-1504328345606-18bbc8c9d7d1", 600, 480),
+          specs: [
+            ["Range", "45 m (line)"],
+            ["Battery", "12h runtime"],
+            ["Pickup", "Powai"],
+            ["Case", "Included"],
+          ],
+          detail:
+            "Bright green beam for daylight visibility. Calibrated yearly; certificate photo available on request.",
+        },
+        {
+          id: "r4",
+          title: "Wet/Dry Shop Vacuum 16 gal",
+          desc: "HEPA cartridge filter for post-renovation dust and water pickup after minor leaks.",
+          price: "₹290 / day",
+          img: UNSPLASH("photo-1581578731548-c64695cc6952", 600, 480),
+          specs: [
+            ["Capacity", "16 gal"],
+            ["Power", "6.5 peak HP"],
+            ["Pickup", "Goregaon"],
+            ["Hose", "8 ft + wands"],
+          ],
+          detail:
+            "Great for post-paint cleanup and AC servicing debris. Bags optional; rinsable filter included.",
+        },
+      ],
+    },
+    {
+      id: "party",
+      emoji: "🎉",
+      title: "Party & Events",
+      blurb: "Speakers, tents, lighting, and crowd-ready AV.",
+      cover: UNSPLASH("photo-1470225620780-dba8ba36b745", 400, 300),
+      scroll: UNSPLASH("photo-1514525253161-7a46d19cd819", 280, 180),
+      items: [
+        {
+          id: "p1",
+          title: "JBL PartyBox 310 + Stand",
+          desc: "200W portable PA with mic input, bass boost, and splash-proof top panel for poolside gigs.",
+          price: "₹1,100 / day",
+          img: UNSPLASH("photo-1540575467063-178a50c2df87", 600, 480),
+          specs: [
+            ["Runtime", "Up to 18h"],
+            ["Inputs", "Mic, guitar, BT"],
+            ["Pickup", "Lower Parel"],
+            ["Add-on", "Wireless mic +₹200"],
+          ],
+          detail:
+            "Rolling cart and power extension included. Popular for terrace parties and small weddings.",
+        },
+        {
+          id: "p2",
+          title: "Hexagon Canopy Tent 20×10 ft",
+          desc: "UV-coated fabric, tool-free setup, sidewall kit optional for monsoon evenings.",
+          price: "₹950 / day",
+          img: UNSPLASH("photo-1530103862676-de8c9debd1be", 600, 480),
+          specs: [
+            ["Capacity", "40 seated"],
+            ["Setup time", "~25 min"],
+            ["Pickup", "Thane"],
+            ["Stakes", "Weighted bags avail."],
+          ],
+          detail:
+            "Frame inspected after each rental. Perfect for vendor stalls and backyard celebrations.",
+        },
+        {
+          id: "p3",
+          title: "RGB Par LED ×6 + Controller",
+          desc: "DMX-ready uplights for stage washes, brand colors, and dancefloor ambience.",
+          price: "₹680 / day",
+          img: UNSPLASH("photo-1492684223066-81342ee5ff30", 600, 480),
+          specs: [
+            ["Watts", "7×12W LEDs each"],
+            ["Modes", "Sound-active, DMX"],
+            ["Pickup", "BKC"],
+            ["Cables", "IEC + DMX included"],
+          ],
+          detail:
+            "Pre-programmed scenes for house parties; brief walkthrough provided at handoff.",
+        },
+        {
+          id: "p4",
+          title: "Smoke Machine 1500W + Fluid",
+          desc: "Fast heat-up, wired remote, low residue fluid—safe for indoor venues with ventilation.",
+          price: "₹420 / day",
+          img: UNSPLASH("photo-1516450360452-9312f5e86fc7", 600, 480),
+          specs: [
+            ["Tank", "2.5 L"],
+            ["Output", "18,000 cu ft/min"],
+            ["Pickup", "Khar"],
+            ["Fluid", "1L included"],
+          ],
+          detail:
+            "Pair with the PartyBox for dramatic first-dance moments. Owner demonstrates safe placement.",
+        },
+      ],
+    },
+    {
+      id: "travel",
+      emoji: "🚗",
+      title: "Travel & Transport",
+      blurb: "Bikes, roof boxes, luggage, and road-trip essentials.",
+      cover: UNSPLASH("photo-1485965120184-e220f721d03e", 400, 300),
+      scroll: UNSPLASH("photo-1558618666-fcd25c85cd64", 280, 180),
+      items: [
+        {
+          id: "t1",
+          title: "Carbon Gravel Bike (Medium)",
+          desc: "Shimano GRX 1×11, tubeless wheels, two bottle cages—ready for weekend coastal rides.",
+          price: "₹1,400 / day",
+          img: UNSPLASH("photo-1485965120184-e220f721d03e", 600, 480),
+          specs: [
+            ["Frame", "M / 52cm"],
+            ["Pedals", "SPD or flats"],
+            ["Pickup", "Worli Sea Face"],
+            ["Helmet", "MIPS +₹150"],
+          ],
+          detail:
+            "Recently serviced drivetrain. Fit card with saddle height notes from owner included.",
+        },
+        {
+          id: "t2",
+          title: "Thule Motion XT XL Roof Box",
+          desc: "450 L aerodynamic cargo box with dual-side opening—great for airport runs and ski trips.",
+          price: "₹890 / day",
+          img: UNSPLASH("photo-1503376780353-7e669276fc8b", 600, 480),
+          specs: [
+            ["Volume", "450 L"],
+            ["Mounts", "Square bar kit"],
+            ["Pickup", "Juhu"],
+            ["Load", "75 kg max"],
+          ],
+          detail:
+            "Includes torque wrench and mounting checklist. Compatible with most factory racks—confirm vehicle on chat.",
+        },
+        {
+          id: "t3",
+          title: "Pelican Air Travel Case Set",
+          desc: "Carry-on + check-in hard shells with TSA locks and organizer cubes.",
+          price: "₹340 / day",
+          img: UNSPLASH("photo-1565026057437-bc90a3ddec87", 600, 480),
+          specs: [
+            ["Set", "22\" + 28\""],
+            ["Weight", "4.1 kg / 5.4 kg"],
+            ["Pickup", "Colaba"],
+            ["Wheels", "Sealed bearing"],
+          ],
+          detail:
+            "Scuff-free shells; ideal for creators carrying fragile gear alongside clothing.",
+        },
+        {
+          id: "t4",
+          title: "Compact Car Fridge 35L (12V)",
+          desc: "Dual-zone cooling for road trips and shoots—runs from car socket or portable battery.",
+          price: "₹510 / day",
+          img: UNSPLASH("photo-1506905925346-21bda4d32df4", 600, 480),
+          specs: [
+            ["Temp", "-20°C to +10°C"],
+            ["Noise", "<42 dB"],
+            ["Pickup", "Malad"],
+            ["Cable", "12V + AC adapter"],
+          ],
+          detail:
+            "Energy-efficient compressor. Pre-cooled before pickup when scheduled before 6 PM.",
+        },
+      ],
+    },
+    {
+      id: "content",
+      emoji: "🎥",
+      title: "Content Creation",
+      blurb: "Cameras, ring lights, mics, and studio polish.",
+      cover: UNSPLASH("photo-1516035069371-29a1b244cc32", 400, 300),
+      scroll: UNSPLASH("photo-1492691527719-9d1e07e534b4", 280, 180),
+      items: [
+        {
+          id: "c1",
+          title: "Sony A7 IV + 24-70mm f/2.8 GM",
+          desc: "33 MP hybrid body with stabilized zoom—ideal for events, interviews, and product reels.",
+          price: "₹2,400 / day",
+          img: UNSPLASH("photo-1516035069371-29a1b244cc32", 600, 480),
+          specs: [
+            ["Shutter count", "~4.2k"],
+            ["Media", "2× 128GB CFexpress"],
+            ["Pickup", "Fort"],
+            ["Insurance", "Optional add-on"],
+          ],
+          detail:
+            "Sensor cleaned weekly. Includes dual charger and USB-C tether cable. ND filter kit +₹300.",
+        },
+        {
+          id: "c2",
+          title: "18\" Bi-Color Ring Light Kit",
+          desc: "Stand, phone bracket, and diffusion sock for soft beauty lighting and product macros.",
+          price: "₹380 / day",
+          img: UNSPLASH("photo-1526170375885-4d8ecf77b99f", 600, 480),
+          specs: [
+            ["CCT", "3200–5600K"],
+            ["CRI", "95+"],
+            ["Pickup", "Versova"],
+            ["Power", "AC adapter"],
+          ],
+          detail:
+            "Quiet operation for livestreams; remote control for brightness and color on the cable.",
+        },
+        {
+          id: "c3",
+          title: "Rode Wireless GO II (2 TX)",
+          desc: "Dual-channel compact lav system with onboard recording—clip and go for vox pops.",
+          price: "₹620 / day",
+          img: UNSPLASH("photo-1590602847861-f357a9332bbc", 600, 480),
+          specs: [
+            ["Range", "200 m line-of-sight"],
+            ["Internal rec", "7h safety"],
+            ["Pickup", "Sakinaka"],
+            ["Windshields", "Deadcats incl."],
+          ],
+          detail:
+            "Firmware updated; USB-C charging case. Quick pairing demo at pickup.",
+        },
+        {
+          id: "c4",
+          title: "DJI RS 3 Pro Gimbal Kit",
+          desc: "LiDAR focusing module and dual grips for cinematic walking shots with cinema cameras.",
+          price: "₹1,650 / day",
+          img: UNSPLASH("photo-1473968512647-3e447244af8f", 600, 480),
+          specs: [
+            ["Payload", "4.5 kg tested"],
+            ["Battery", "12h grip combo"],
+            ["Pickup", "Mahim"],
+            ["Case", "Hardshell"],
+          ],
+          detail:
+            "Balanced for A7 IV + 24-70 GM profile saved—saves you setup time on shoot day.",
+        },
+      ],
+    },
+  ];
+
+  const MESSAGES = [
+    {
+      name: "Rahul Mehta",
+      time: "9:12",
+      preview: "Sony kit still available for Saturday half-day?",
+      unread: true,
+      avatar: UNSPLASH("photo-1507003211169-0a1dd7228f2d", 120, 120),
+    },
+    {
+      name: "Studio North",
+      time: "Yesterday",
+      preview: "Invoice sent for ring light + gimbal bundle.",
+      unread: false,
+      avatar: UNSPLASH("photo-1472099645785-5658abf4ff4e", 120, 120),
+    },
+    {
+      name: "Ananya K.",
+      time: "Mon",
+      preview: "Ladder returned early—thanks for the quick handoff!",
+      unread: false,
+      avatar: UNSPLASH("photo-1438761681033-6461ffad8d80", 120, 120),
+    },
+  ];
+
+  const state = {
+    screen: "splash",
+    categoryId: null,
+    productId: null,
+    tab: "home",
+  };
+
+  const els = {
+    main: document.getElementById("app-main"),
+    header: document.getElementById("app-header"),
+    headerTitle: document.getElementById("header-title"),
+    headerSub: document.getElementById("header-sub"),
+    tabBar: document.getElementById("tab-bar"),
+  };
+
+  function esc(s) {
+    const d = document.createElement("div");
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function findProduct(productId) {
+    for (const c of CATEGORIES) {
+      const p = c.items.find((x) => x.id === productId);
+      if (p) return { category: c, product: p };
+    }
+    return null;
+  }
+
+  function setHeader(title, sub, opts) {
+    const o = opts || {};
+    els.headerTitle.textContent = title;
+    els.headerSub.textContent = sub || "";
+    els.header.classList.toggle("backable", !!o.back);
+    const existing = els.header.querySelector(".btn-icon--back");
+    if (existing) existing.remove();
+    if (o.back) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "btn-icon btn-icon--back";
+      b.setAttribute("aria-label", "Back");
+      b.innerHTML = "‹";
+      b.addEventListener("click", o.back);
+      els.header.insertBefore(b, els.header.firstChild);
+    }
+  }
+
+  function clearScreens() {
+    els.main.innerHTML = "";
+  }
+
+  function mountScreen(html, id) {
+    clearScreens();
+    const wrap = document.createElement("div");
+    wrap.className = "screen";
+    wrap.id = id;
+    wrap.innerHTML = html;
+    els.main.appendChild(wrap);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => wrap.classList.add("is-active"));
+    });
+  }
+
+  function showSplash() {
+    state.screen = "splash";
+    els.tabBar.hidden = true;
+    setHeader("Rentify", "Peer-to-peer rentals");
+    mountScreen(
+      `
+      <div class="screen-inner splash-screen" style="padding:0;height:100%;min-height:100%">
+        <div class="splash-logo">R</div>
+        <h1>Rentify</h1>
+        <p class="tagline">Use karo, kharidna zaruri nahi</p>
+        <p class="sub">Premium gear. Verified owners. Mumbai-first.</p>
+      </div>
+      `,
+      "scr-splash"
+    );
+    setTimeout(() => goHome(), 2200);
+  }
+
+  function goHome() {
+    state.screen = "home";
+    state.tab = "home";
+    state.categoryId = null;
+    state.productId = null;
+    els.tabBar.hidden = false;
+    syncTabs();
+    setHeader("Discover", "Categories curated for your next project");
+    const catHtml = CATEGORIES.map(
+      (c) => `
+      <button type="button" class="category-card" data-cat="${esc(c.id)}">
+        <img src="${esc(c.cover)}" alt="" width="400" height="200" loading="lazy" />
+        <div class="meta">
+          <div class="emoji" aria-hidden="true">${esc(c.emoji)}</div>
+          <h3>${esc(c.title)}</h3>
+          <p>${esc(c.blurb)}</p>
+        </div>
+      </button>
+    `
+    ).join("");
+
+    const scrollHtml = CATEGORIES.map(
+      (c) => `
+      <button type="button" class="chip-card" data-cat="${esc(c.id)}">
+        <img src="${esc(c.scroll)}" alt="" width="280" height="180" loading="lazy" />
+        <div class="t">${esc(c.emoji + " " + c.title.split(" ")[0])}</div>
+      </button>
+    `
+    ).join("");
+
+    mountScreen(
+      `
+      <div class="screen-inner">
+        <div class="search-row">
+          <input class="search-input" type="search" placeholder="Search tools, cameras, tents…" aria-label="Search" />
+        </div>
+        <p class="section-label">Featured categories</p>
+        <div class="category-grid" id="category-grid">${catHtml}</div>
+        <p class="section-label">Quick picks</p>
+        <div class="horizontal-scroll" id="quick-scroll">${scrollHtml}</div>
+
+        <div class="waitlist-card">
+          <h3>Join the platform</h3>
+          <p class="lead">Early members get priority booking and launch pricing. Add your number—we will only text you about Rentify.</p>
+          <label class="sr-only" for="inapp-phone">Phone number</label>
+          <input class="phone-field" type="tel" id="inapp-phone" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" autocomplete="tel" />
+          <button type="button" class="btn-primary-lg" id="inapp-join" style="margin-bottom:10px;background:var(--accent)">Join waitlist</button>
+          <a class="btn-whatsapp" href="https://wa.me/15551234567?text=Follow%20Rentify%20Store%20channel" target="_blank" rel="noopener noreferrer">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.44 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Follow the Rentify Store channel on WhatsApp
+          </a>
+        </div>
+
+        <p class="section-label">Trending near you</p>
+        <div class="listing-grid" id="trending-list"></div>
+      </div>
+      `,
+      "scr-home"
+    );
+
+    const trending = document.getElementById("trending-list");
+    const mix = CATEGORIES.flatMap((c) => c.items.slice(0, 1));
+    trending.innerHTML = mix
+      .map(
+        (p) => `
+      <article class="product-card" data-pid="${esc(p.id)}">
+        <img src="${esc(p.img)}" alt="" width="224" height="236" loading="lazy" />
+        <div class="body">
+          <h4>${esc(p.title)}</h4>
+          <p class="desc">${esc(p.desc)}</p>
+          <div class="row">
+            <span class="price">${esc(p.price)}</span>
+            <button type="button" class="btn-rent" data-pid="${esc(p.id)}">Rent Now</button>
+          </div>
+        </div>
+      </article>
+    `
+      )
+      .join("");
+
+    bindCategoryClicks(document.getElementById("category-grid"));
+    bindCategoryClicks(document.getElementById("quick-scroll"));
+    bindProductClicks(trending);
+
+    document.getElementById("inapp-join").addEventListener("click", () => {
+      const v = (document.getElementById("inapp-phone").value || "").replace(/\D/g, "");
+      if (!/^\d{10}$/.test(v)) {
+        alert("Please enter a valid 10-digit phone number.");
+        return;
+      }
+      alert("You are on the list. We will text you when Rentify opens in your zone.");
+    });
+  }
+
+  function bindCategoryClicks(root) {
+    if (!root) return;
+    root.querySelectorAll("[data-cat]").forEach((el) => {
+      el.addEventListener("click", () => showCategory(el.getAttribute("data-cat")));
+    });
+  }
+
+  function bindProductClicks(root) {
+    if (!root) return;
+    root.querySelectorAll("[data-pid]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        const btn = e.target.closest(".btn-rent");
+        const card = e.target.closest(".product-card");
+        const id = (btn && btn.getAttribute("data-pid")) || (card && card.getAttribute("data-pid"));
+        if (id) showProduct(id);
+      });
+    });
+  }
+
+  function showCategory(categoryId) {
+    const c = CATEGORIES.find((x) => x.id === categoryId);
+    if (!c) return;
+    state.screen = "category";
+    state.categoryId = categoryId;
+    state.productId = null;
+    els.tabBar.hidden = false;
+    syncTabs();
+    setHeader(c.title, c.blurb, {
+      back: () => goHome(),
+    });
+    const list = c.items
+      .map(
+        (p) => `
+      <article class="product-card" data-pid="${esc(p.id)}">
+        <img src="${esc(p.img)}" alt="" width="224" height="236" loading="lazy" />
+        <div class="body">
+          <h4>${esc(p.title)}</h4>
+          <p class="desc">${esc(p.desc)}</p>
+          <div class="row">
+            <span class="price">${esc(p.price)}</span>
+            <button type="button" class="btn-rent" data-pid="${esc(p.id)}">Rent Now</button>
+          </div>
+        </div>
+      </article>
+    `
+      )
+      .join("");
+    mountScreen(
+      `
+      <div class="screen-inner">
+        <img class="detail-hero" style="aspect-ratio:16/9;margin-top:-16px" src="${esc(c.cover)}" alt="" width="800" height="450" loading="lazy" />
+        <p class="detail-copy" style="margin-top:12px">${esc(c.emoji + " " + c.title + " — " + c.blurb)}</p>
+        <p class="section-label">Available to rent</p>
+        <div class="listing-grid" id="cat-list">${list}</div>
+      </div>
+      `,
+      "scr-cat"
+    );
+    bindProductClicks(document.getElementById("cat-list"));
+  }
+
+  function showProduct(productId) {
+    const found = findProduct(productId);
+    if (!found) return;
+    const { category: c, product: p } = found;
+    state.screen = "detail";
+    state.productId = productId;
+    els.tabBar.hidden = false;
+    syncTabs();
+    setHeader(p.title, p.price, {
+      back: () => showCategory(c.id),
+    });
+    const specs = p.specs
+      .map(
+        ([k, v]) => `
+      <li><span>${esc(k)}</span><span>${esc(v)}</span></li>
+    `
+      )
+      .join("");
+    mountScreen(
+      `
+      <div class="screen-inner" style="padding-top:0">
+        <img class="detail-hero" src="${esc(p.img)}" alt="" width="800" height="500" loading="lazy" />
+        <div class="detail-body">
+          <div class="detail-meta">
+            <span class="badge">Verified owner</span>
+            <span class="badge">${esc(c.title)}</span>
+            <span class="badge">Instant confirm</span>
+          </div>
+          <h2>${esc(p.title)}</h2>
+          <p class="detail-copy">${esc(p.detail)}</p>
+          <ul class="spec-list">${specs}</ul>
+          <div class="sticky-cta">
+            <button type="button" class="btn-primary-lg" id="detail-rent">Rent Now — ${esc(p.price)}</button>
+            <button type="button" class="btn-secondary-lg">Message owner</button>
+          </div>
+        </div>
+      </div>
+      `,
+      "scr-detail"
+    );
+    document.getElementById("detail-rent").addEventListener("click", () => {
+      alert("Demo: opens checkout flow. In production this would hold dates and verify ID.");
+    });
+  }
+
+  function showNearby() {
+    state.screen = "nearby";
+    state.tab = "nearby";
+    syncTabs();
+    setHeader("Nearby", "Illustrative map + live listings");
+    const cards = CATEGORIES.flatMap((c) => c.items.slice(0, 1))
+      .map(
+        (p) => `
+      <article class="product-card" data-pid="${esc(p.id)}">
+        <img src="${esc(p.img)}" alt="" width="224" height="236" loading="lazy" />
+        <div class="body">
+          <h4>${esc(p.title)}</h4>
+          <p class="desc">${esc(p.desc)}</p>
+          <div class="row">
+            <span class="price">${esc(p.price)}</span>
+            <button type="button" class="btn-rent" data-pid="${esc(p.id)}">Rent Now</button>
+          </div>
+        </div>
+      </article>
+    `
+      )
+      .join("");
+    mountScreen(
+      `
+      <div class="screen-inner">
+        <div class="search-row">
+          <input class="search-input" type="search" placeholder="Search area or landmark…" aria-label="Search location" />
+        </div>
+        <div class="map-block" aria-hidden="true">
+          <span class="map-pin" style="top:28%;left:22%"></span>
+          <span class="map-pin" style="top:52%;left:58%"></span>
+          <span class="map-pin" style="top:68%;left:38%"></span>
+        </div>
+        <p class="section-label">Within 25 minutes</p>
+        <div class="listing-grid" id="near-list">${cards}</div>
+      </div>
+      `,
+      "scr-nearby"
+    );
+    bindProductClicks(document.getElementById("near-list"));
+  }
+
+  function showMessages() {
+    state.screen = "messages";
+    state.tab = "messages";
+    syncTabs();
+    setHeader("Messages", "Inbox");
+    const rows = MESSAGES.map(
+      (m) => `
+      <button type="button" class="msg-row ${m.unread ? "unread" : ""}" style="width:100%;text-align:left;border:1px solid var(--border)">
+        <img class="msg-avatar" src="${esc(m.avatar)}" alt="" width="88" height="88" loading="lazy" />
+        <div class="msg-body">
+          <div class="msg-top">
+            <span class="msg-name">${esc(m.name)}</span>
+            <span class="msg-time">${esc(m.time)}</span>
+          </div>
+          <div class="msg-preview">${esc(m.preview)}</div>
+        </div>
+      </button>
+    `
+    ).join("");
+    mountScreen(
+      `
+      <div class="screen-inner">
+        <p class="section-label">Active threads</p>
+        <div class="msg-list">${rows}</div>
+      </div>
+      `,
+      "scr-msg"
+    );
+  }
+
+  function showProfile() {
+    state.screen = "profile";
+    state.tab = "profile";
+    syncTabs();
+    setHeader("Profile", "Verified host & renter");
+    const avatar = UNSPLASH("photo-1560250097-0b93528c311a", 200, 200);
+    const listings = CATEGORIES[3].items.slice(0, 2);
+    const mini = listings
+      .map(
+        (p) => `
+      <div class="mini-listing">
+        <img src="${esc(p.img)}" alt="" width="112" height="112" loading="lazy" />
+        <div>
+          <h4>${esc(p.title)}</h4>
+          <p>${esc(p.price)} · 98% response</p>
+        </div>
+      </div>
+    `
+      )
+      .join("");
+    mountScreen(
+      `
+      <div class="screen-inner">
+        <div class="profile-hero">
+          <img src="${esc(avatar)}" alt="" width="176" height="176" loading="lazy" />
+          <h2>Vikram Desai</h2>
+          <p class="loc">Fort, Mumbai · Pro host</p>
+          <p class="bio">Cinematographer and gear curator. Same-day handoff windows on weekdays. All kits sanitized and checklist-signed at pickup.</p>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><b>186</b><span>rentals</span></div>
+          <div class="stat"><b>4.97</b><span>rating</span></div>
+          <div class="stat"><b>₹4.2L</b><span>earned</span></div>
+        </div>
+        <p class="profile-section-title">Listed on Rentify</p>
+        <div class="my-listings">${mini}</div>
+        <button type="button" class="btn-secondary-lg" style="margin-bottom:10px">Edit profile</button>
+        <button type="button" class="btn-secondary-lg" style="margin-bottom:10px">Payouts & verification</button>
+        <button type="button" class="btn-primary-lg" style="background:#b91c1c">Sign out</button>
+      </div>
+      `,
+      "scr-profile"
+    );
+  }
+
+  function syncTabs() {
+    document.querySelectorAll(".tab").forEach((t) => {
+      const id = t.getAttribute("data-tab");
+      t.classList.toggle("is-active", id === state.tab);
+    });
+  }
+
+  function onTabClick(tab) {
+    state.tab = tab;
+    if (tab === "home") goHome();
+    else if (tab === "nearby") showNearby();
+    else if (tab === "messages") showMessages();
+    else if (tab === "profile") showProfile();
+  }
+
+  document.querySelectorAll(".tab").forEach((t) => {
+    t.addEventListener("click", () => onTabClick(t.getAttribute("data-tab")));
+  });
+
+  document.getElementById("btn-scroll-waitlist").addEventListener("click", () => {
+    document.getElementById("waitlist-section").scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+
+  document.getElementById("waitlist-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const phone = (document.getElementById("page-phone").value || "").replace(/\D/g, "");
+    if (!/^\d{10}$/.test(phone)) {
+      alert("Please enter a valid 10-digit phone number.");
+      return;
+    }
+    alert("Thanks — you are on the Rentify waitlist. Check WhatsApp for the store channel link.");
+    document.getElementById("page-phone").value = "";
+  });
+
+  showSplash();
+})();
+  </script>
+</body>
+</html>
