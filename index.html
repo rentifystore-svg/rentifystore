@@ -662,57 +662,37 @@
                         <div class="absolute inset-0 bg-gray-900 rounded-[40px] shadow-2xl" style="box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
                             <!-- Screen -->
                             <div class="absolute inset-4 bg-white rounded-[32px] overflow-hidden">
-                                <!-- App Screens Container -->
-                                <div id="app-screens" class="relative w-full h-full">
+                                <!-- App Screens Image Slider -->
+                                <div id="app-screens" class="relative w-full h-full overflow-hidden">
                                     <!-- Screen 1: Splash -->
-                                    <div class="screen absolute inset-0 bg-white hidden">
-                                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2MCIgdmlld0JveD0iMCAwIDMyMCA1NjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iNTYwIiBmaWxsPSJ1cmwoI2dyYWQxKSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkMSIgeDE9IjAiIHkxPSIwIiB4Mj0iMzIwIiB5Mj0iNTYwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiMwMEE4NkIiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDA2NjQ0Ii8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPHRleHQgeD0iMTYwIiB5PSIyODAiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNDgiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5SZW50aWZ5PC90ZXh0Pgo8dGV4dCB4PSIxNjAiIHk9IjMyMCIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VXNlIGthcm8sIGtoYXJpZG5hIHphcnVyaSBuYWhpPC90ZXh0Pgo8L3N2Zz4=" alt="Rentify Splash Screen" class="w-full h-full object-cover" />
-                                    </div>
+                                    <img src="./assets/screen1-splash.png" alt="Rentify Splash Screen" class="screen absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-1000" />
                                     
                                     <!-- Screen 2: Onboarding 1 -->
-                                    <div class="screen absolute inset-0 bg-white hidden">
-                                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2MCIgdmlld0JveD0iMCAwIDMyMCA1NjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iNTYwIiBmaWxsPSJ3aGl0ZSIvPgo8Y2lyY2xlIGN4PSIxNjAiIGN5PSIxODAiIHI9IjYwIiBmaWxsPSIjMDBBODZCIi8+Cjx0ZXh0IHg9IjE2MCIgeT0iMzEwIiBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5SZW50IEFueXRoaW5nPC90ZXh0Pgo8dGV4dCB4PSIxNjAiIHk9IjM0MCIgZmlsbD0iIzY2NjY2NiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5Gcm9tIHRvb2xzIHRvIGVsZWN0cm9uaWNzLCByZW50IHdoYXQgeW91IG5lZWQ8L3RleHQ+Cjwvc3ZnPg==" alt="Onboarding Screen 1" class="w-full h-full object-cover" />
-                                    </div>
+                                    <img src="./assets/screen2-onboarding1.png" alt="Onboarding Screen 1" class="screen absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" />
                                     
                                     <!-- Screen 3: Onboarding 2 -->
-                                    <div class="screen absolute inset-0 bg-white hidden">
-                                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2MCIgdmlld0JveD0iMCAwIDMyMCA1NjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iNTYwIiBmaWxsPSJ3aGl0ZSIvPgo8Y2lyY2xlIGN4PSIxNjAiIGN5PSIxODAiIHI9IjYwIiBmaWxsPSIjMDBBODZCIi8+Cjx0ZXh0IHg9IjE2MCIgeT0iMzEwIiBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5FYXJuIE1vbmV5PC90ZXh0Pgo8dGV4dCB4PSIxNjAiIHk9IjM0MCIgZmlsbD0iIzY2NjY2NiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5NYWtlIG1vbmV5IGZyb20geW91ciBpZGxlIGl0ZW1zPC90ZXh0Pgo8L3N2Zz4=" alt="Onboarding Screen 2" class="w-full h-full object-cover" />
-                                    </div>
+                                    <img src="./assets/screen3-onboarding2.png" alt="Onboarding Screen 2" class="screen absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" />
                                     
                                     <!-- Screen 4: Onboarding 3 -->
-                                    <div class="screen absolute inset-0 bg-white hidden">
-                                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2MCIgdmlld0JveD0iMCAwIDMyMCA1NjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iNTYwIiBmaWxsPSJ3aGl0ZSIvPgo8Y2lyY2xlIGN4PSIxNjAiIGN5PSIxODAiIHI9IjYwIiBmaWxsPSIjMDBBODZCIi8+Cjx0ZXh0IHg9IjE2MCIgeT0iMzEwIiBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TYWZlICYgU2VjdXJlPC90ZXh0Pgo8dGV4dCB4PSIxNjAiIHk9IjM0MCIgZmlsbD0iIzY2NjY2NiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5WZXJpZmllZCB1c2VycyBhbmQgc2VjdXJlIHRyYW5zYWN0aW9uczwvdGV4dD4KPC9zdmc+" alt="Onboarding Screen 3" class="w-full h-full object-cover" />
-                                    </div>
+                                    <img src="./assets/screen4-onboarding3.png" alt="Onboarding Screen 3" class="screen absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" />
                                     
                                     <!-- Screen 5: Login/Signup -->
-                                    <div class="screen absolute inset-0 bg-white hidden">
-                                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2MCIgdmlld0JveD0iMCAwIDMyMCA1NjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iNTYwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSIxNjAiIHk9IjIwMCIgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+V2VsY29tZSBCYWNrPC90ZXh0Pgo8cmVjdCB4PSI0MCIgeT0iMjQwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjQ4IiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGRkZGQiIHN0cm9rZS13aWR0aD0iMiIgcng9IjgiLz4KPHRleHQgeD0iNTAiIHk9IjI3MCIgZmlsbD0iIzk5OTk5OSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0Ij5QaG9uZSBOdW1iZXI8L3RleHQ+CjxyZWN0IHg9IjQwIiB5PSIzMDAiIHdpZHRoPSIyNDAiIGhlaWdodD0iNDgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RkZGRkZCIgc3Ryb2tlLXdpZHRoPSIyIiByeD0iOCIvPgo8dGV4dCB4PSI1MCIgeT0iMzMwIiBmaWxsPSIjOTk5OTk5IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiPlBhc3N3b3JkPC90ZXh0Pgo8cmVjdCB4PSI0MCIgeT0iMzYwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjQ4IiBmaWxsPSIjMDBBODZCIiByeD0iOCIvPgo8dGV4dCB4PSIxNjAiIHk9IjM5MCIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkxvZ2luPC90ZXh0Pgo8cmVjdCB4PSI0MCIgeT0iNDIwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjQ4IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMEE4NkIiIHN0cm9rZS13aWR0aD0iMiIgcng9IjgiLz4KPHRleHQgeD0iMTYwIiB5PSI0NTAiIGZpbGw9IiMwMEE4NkIiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlNpZ24gVXA8L3RleHQ+Cjwvc3ZnPg==" alt="Login/Signup Screen" class="w-full h-full object-cover" />
-                                    </div>
+                                    <img src="./assets/screen5-login.png" alt="Login/Signup Screen" class="screen absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" />
                                     
                                     <!-- Screen 6: Home -->
-                                    <div class="screen absolute inset-0 bg-white hidden">
-                                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2MCIgdmlld0JveD0iMCAwIDMyMCA1NjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iNTYwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSI0MCIgeT0iNDAiIGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZm9udC13ZWlnaHQ9ImJvbGQiPlJlbnRpZnk8L3RleHQ+CjxjaXJjbGUgY3g9IjI4MCIgY3k9IjQwIiByPSIxMiIgZmlsbD0iI2RkZGRkZCIvPgo8Y2lyY2xlIGN4PSIyNTAiIGN5PSI0MCIgcj0iMTIiIGZpbGw9IiNkZGRkZGQiLz4KPHJlY3QgeD0iMjAiIHk9IjgwIiB3aWR0aD0iMjgwIiBoZWlnaHQ9IjQwIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGRkZGQiIHN0cm9rZS13aWR0aD0iMSIgcng9IjgiLz4KPHRleHQgeD0iMzAiIHk9IjEwNSIgZmlsbD0iIzk5OTk5OSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0Ij5TZWFyY2ggaXRlbXMuLi48L3RleHQ+CjxyZWN0IHg9IjIwIiB5PSIxNDAiIHdpZHRoPSIxMzUiIGhlaWdodD0iMTIwIiBmaWxsPSIjZjVmNWY1IiByeD0iOCIvPgo8cmVjdCB4PSIxNjUiIHk9IjE0MCIgd2lkdGg9IjEzNSIgaGVpZ2h0PSIxMjAiIGZpbGw9IiNmNWY1ZjUiIHJ4PSI4Ii8+Cjx0ZXh0IHg9Ijg3LjUiIHk9IjIwMCIgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5Qb3dlciBEcmlsbDwvdGV4dD4KPHRleHQgeD0iODcuNSIgeT0iMjIwIiBmaWxsPSIjMDBBODZCIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjx0c3Bhbj7CqzE1MC9kYXk8L3RzcGFuPjwvdGV4dD4KPHRleHQgeD0iMjMyLjUiIHk9IjIwMCIgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5DYW1lcmE8L3RleHQ+Cjx0ZXh0IHg9IjIzMi41IiB5PSIyMjAiIGZpbGw9IiMwMEE4NkIiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+PHRzcGFuPuyCqTIwMC9kYXk8L3RzcGFuPjwvdGV4dD4KPC9zdmc+" alt="Home Screen" class="w-full h-full object-cover" />
-                                    </div>
+                                    <img src="./assets/screen6-home.png" alt="Home Screen" class="screen absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" />
                                     
                                     <!-- Screen 7: Map -->
-                                    <div class="screen absolute inset-0 bg-white hidden">
-                                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2MCIgdmlld0JveD0iMCAwIDMyMCA1NjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iNTYwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSI0MCIgeT0iNDAiIGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZm9udC13ZWlnaHQ9ImJvbGQiPk5lYXIgWW91PC90ZXh0Pgo8Y2lyY2xlIGN4PSIyODAiIGN5PSI0MCIgcj0iMTIiIGZpbGw9IiNkZGRkZGQiLz4KPHJlY3QgeD0iMjAiIHk9IjgwIiB3aWR0aD0iMjgwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2YwZjBmMCIgc3Ryb2tlPSIjZGRkZGRkIiBzdHJva2Utd2lkdGg9IjEiLz4KPGNpcmNsZSBjeD0iMTAwIiBjeT0iMjAwIiByPSI4IiBmaWxsPSIjMDBBODZCIi8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjE1MCIgcj0iOCIgZmlsbD0iIzAwQTA4NkIiLz4KPGNpcmNsZSBjeD0iMjUwIiBjeT0iMzAwIiByPSI4IiBmaWxsPSIjMDBBODZCIi8+CjxjaXJjbGUgY3g9IjE1MCIgY3k9IjM1MCIgcj0iOCIgZmlsbD0iIzAwQTA4NkIiLz4KPGNpcmNsZSBjeD0iODAiIGN5PSI0MDAiIHI9IjgiIGZpbGw9IiMwMEE4NkIiLz4KPGNpcmNsZSBjeD0iMjgwIiBjeT0iNDUwIiByPSI4IiBmaWxsPSIjMDBBODZCIi8+Cjwvc3ZnPg==" alt="Map Screen" class="w-full h-full object-cover" />
-                                    </div>
+                                    <img src="./assets/screen7-map.png" alt="Map Screen" class="screen absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" />
                                     
                                     <!-- Screen 8: Listing -->
-                                    <div class="screen absolute inset-0 bg-white hidden">
-                                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2MCIgdmlld0JveD0iMCAwIDMyMCA1NjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iNTYwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSI0MCIgeT0iNDAiIGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZm9udC13ZWlnaHQ9ImJvbGQiPkl0ZW0gRGV0YWlsczwvdGV4dD4KPHJlY3QgeD0iMjAiIHk9IjgwIiB3aWR0aD0iMjgwIiBoZWlnaHQ9IjE2MCIgZmlsbD0iI2Y1ZjVmNSIgcng9IjgiLz4KPHRleHQgeD0iNDAiIHk9IjI4MCIgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCI+UHJvZmVzc2lvbmFsIFBvd2VyIERyaWxsPC90ZXh0Pgo8dGV4dCB4PSI0MCIgeT0iMzEwIiBmaWxsPSIjMDBBODZCIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIj7CqzE1MC9kYXk8L3RleHQ+CjxyZWN0IHg9IjIwIiB5PSIzNDAiIHdpZHRoPSIxMzAiIGhlaWdodD0iNDgiIGZpbGw9IiMwMEE4NkIiIHJ4PSI4Ii8+Cjx0ZXh0IHg9Ijg1IiB5PSIzNzAiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5SZW50IE5vdzwvdGV4dD4KPHJlY3QgeD0iMTcwIiB5PSIzNDAiIHdpZHRoPSIxMzAiIGhlaWdodD0iNDgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwQTA4NkIiIHN0cm9rZS13aWR0aD0iMiIgcng9IjgiLz4KPHRleHQgeD0iMjM1IiB5PSIzNzAiIGZpbGw9IiMwMEE4NkIiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkNoYXQ8L3RleHQ+Cjwvc3ZnPg==" alt="Listing Screen" class="w-full h-full object-cover" />
-                                    </div>
+                                    <img src="./assets/screen8-listing.png" alt="Listing Screen" class="screen absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" />
                                     
                                     <!-- Screen 9: Chat -->
-                                    <div class="screen absolute inset-0 bg-white hidden">
-                                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2MCIgdmlld0JveD0iMCAwIDMyMCA1NjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iNTYwIiBmaWxsPSJ3aGl0ZSIvPgo8dGV4dCB4PSI0MCIgeT0iNDAiIGZpbGw9IiMzMzMzMzMiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZm9udC13ZWlnaHQ9ImJvbGQiPkNoYXQ8L3RleHQ+CjxjaXJjbGUgY3g9IjgwIiBjeT0iMTAwIiByPSIyMCIgZmlsbD0iI2RkZGRkZCIvPgo8dGV4dCB4PSI4MCIgeT0iMTA1IiBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJhaHVsPC90ZXh0Pgo8dGV4dCB4PSI4MCIgeT0iMTIwIiBmaWxsPSIjOTk5OTk5IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPk9ubGluZTwvdGV4dD4KPHJlY3QgeD0iMjAiIHk9IjE2MCIgd2lkdGg9IjE4MCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2Y1ZjVmNSIgcng9IjgiLz4KPHRleHQgeD0iMzAiIHk9IjE4NSIgZmlsbD0iIzMzMzMzMyIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIj5JcyB0aGUgZHJpbGwgc3RpbGwgYXZhaWxhYmxlPzwvdGV4dD4KPHJlY3QgeD0iMTIwIiB5PSIyMjAiIHdpZHRoPSIxODAiIGhlaWdodD0iNDAiIGZpbGw9IiMwMEE4NkIiIHJ4PSI4Ii8+Cjx0ZXh0IHg9IjEzMCIgeT0iMjQ1IiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIj5ZZXMsIGF2YWlsYWJsZSBmb3IgcmVudCE8L3RleHQ+CjxyZWN0IHg9IjIwIiB5PSI0ODAiIHdpZHRoPSIyMDAiIGhlaWdodD0iNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RkZGRkZCIgc3Ryb2tlLXdpZHRoPSIxIiByeD0iOCIvPgo8dGV4dCB4PSIzMCIgeT0iNTA1IiBmaWxsPSIjOTk5OTk5IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiPlR5cGUgYSBtZXNzYWdlLi4uPC90ZXh0Pgo8cmVjdCB4PSIyMzAiIHk9IjQ4MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjMDBBODZCIiByeD0iOCIvPgo8dGV4dCB4PSIyNjAiIHk9IjUwNSIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlNlbmQ8L3RleHQ+Cjwvc3ZnPg==" alt="Chat Screen" class="w-full h-full object-cover" />
-                                    </div>
+                                    <img src="./assets/screen9-chat.png" alt="Chat Screen" class="screen absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" />
                                     
                                     <!-- Screen 10: Profile -->
-                                    <div class="screen absolute inset-0 bg-white hidden">
-                                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2MCIgdmlld0JveD0iMCAwIDMyMCA1NjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iNTYwIiBmaWxsPSJ3aGl0ZSIvPgo8Y2lyY2xlIGN4PSIxNjAiIGN5PSIxMjAiIHI9IjQwIiBmaWxsPSIjZGRkZGRkIi8+Cjx0ZXh0IHg9IjE2MCIgeT0iMTgwIiBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5WZXJpZmllZCBQcm9maWxlPC90ZXh0Pgo8Y2lyY2xlIGN4PSIxNjAiIGN5PSIxOTUiIHI9IjgiIGZpbGw9IiMwMEE4NkIiLz4KPHRleHQgeD0iMTgwIiB5PSIyMDAiIGZpbGw9IiMwMEE4NkIiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiI+VmVyaWZpZWQ8L3RleHQ+CjxyZWN0IHg9IjQwIiB5PSIyNDAiIHdpZHRoPSIyNDAiIGhlaWdodD0iODAiIGZpbGw9IiNmNWY1ZjUiIHJ4PSI4Ii8+Cjx0ZXh0IHg9IjUwIiB5PSIyNzAiIGZpbGw9IiM2NjY2NjYiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCI+VG90YWwgRWFybmluZ3M8L3RleHQ+Cjx0ZXh0IHg9IjI3MCIgeT0iMjcwIiBmaWxsPSIjMDBBODZCIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSJib2xkIj7CqzEyLDQ1MDwvdGV4dD4KPHRleHQgeD0iNTAiIHk9IjMwMCIgZmlsbD0iIzY2NjY2NiIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0Ij5JdGVtcyBSZW50ZWQ8L3RleHQ+Cjx0ZXh0IHg9IjI3MCIgeT0iMzAwIiBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSJib2xkIj4yMzwvdGV4dD4KPHJlY3QgeD0iNDAiIHk9IjM0MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSI0OCIgZmlsbD0iIzAwQTA4NkIiIHJ4PSI4Ii8+Cjx0ZXh0IHg9IjE2MCIgeT0iMzcwIiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TGlzdCBOZXcgSXRlbTwvdGV4dD4KPHJlY3QgeD0iNDAiIHk9IjQwMCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSI0OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkZGRkIiBzdHJva2Utd2lkdGg9IjIiIHJ4PSI4Ii8+Cjx0ZXh0IHg9IjE2MCIgeT0iNDMwIiBmaWxsPSIjMzMzMzMzIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5WaWV3IEhpc3Rvcnk8L3RleHQ+Cjwvc3ZnPg==" alt="Profile Screen" class="w-full h-full object-cover" />
-                                    </div>
+                                    <img src="./assets/screen10-profile.png" alt="Profile Screen" class="screen absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" />
                                 </div>
                             </div>
                         </div>
@@ -867,27 +847,22 @@
     </div>
 
     <script>
-        // App Screen Animation with Premium Cross-Fade
+        // Simple Image Slider for App Screens
         let currentScreen = 0;
         const screens = document.querySelectorAll('.screen');
-        const screenDuration = 2500; // 2.5 seconds per screen
+        const holdTime = 3000; // 3 seconds hold time per screen
+        const fadeTime = 1000; // 1 second fade transition
         
         function showScreen(index) {
-            // Cross-fade transition
+            // Fade out current screen
             screens.forEach(screen => {
-                screen.style.transition = 'opacity 0.8s ease-in-out';
                 screen.style.opacity = '0';
             });
             
+            // Fade in new screen after fade out
             setTimeout(() => {
-                screens.forEach(screen => {
-                    screen.classList.add('hidden');
-                    screen.style.opacity = '0';
-                });
-                
-                screens[index].classList.remove('hidden');
                 screens[index].style.opacity = '1';
-            }, 400);
+            }, fadeTime);
         }
         
         function nextScreen() {
@@ -895,12 +870,8 @@
             showScreen(currentScreen);
         }
         
-        // Initialize first screen
-        screens[0].classList.remove('hidden');
-        screens[0].style.opacity = '1';
-        
-        // Start auto-playing animation
-        setInterval(nextScreen, screenDuration);
+        // Start auto-playing slider
+        setInterval(nextScreen, holdTime + fadeTime);
         
         // Waitlist form handling with phone number
         document.getElementById('waitlist-form').addEventListener('submit', function(e) {
