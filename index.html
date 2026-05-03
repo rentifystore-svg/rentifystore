@@ -3,42 +3,719 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Project</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <title>Rentify - Rent anything, anywhere in Mumbai</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'rentify-green': '#00A86B',
+                    },
+                    borderRadius: {
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                        '3xl': '2rem',
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for category pills */
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Grid background for map */
+        .grid-background {
+            background-image: linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <nav>
-            <h1>New Project</h1>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="min-h-screen bg-white">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <h1 class="text-2xl font-bold text-rentify-green">Rentify</h1>
+                </div>
+                <!-- Nav Links -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#" class="text-gray-700 hover:text-rentify-green px-3 py-2 rounded-md text-sm font-medium">Browse</a>
+                        <a href="#" class="text-gray-700 hover:text-rentify-green px-3 py-2 rounded-md text-sm font-medium">List Item</a>
+                        <a href="#" class="text-gray-700 hover:text-rentify-green px-3 py-2 rounded-md text-sm font-medium">How it Works</a>
+                        <a href="#" class="text-gray-700 hover:text-rentify-green px-3 py-2 rounded-md text-sm font-medium">Trust & Safety</a>
+                    </div>
+                </div>
+                <!-- CTA Buttons -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <button class="text-gray-700 hover:text-rentify-green px-3 py-2 rounded-md text-sm font-medium">Log in</button>
+                    <button class="bg-rentify-green text-white px-4 py-2 rounded-full hover:bg-green-600 transition-colors">Sign up</button>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="text-gray-700 hover:text-rentify-green p-2">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-    <main>
-        <section id="home">
-            <h2>Welcome to Your New Project</h2>
-            <p>This is the starting point for your new web project.</p>
-        </section>
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-rentify-green via-green-50 to-white py-20 sm:py-32 overflow-hidden">
+        <!-- Premium texture overlay -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%2300A86B" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                    Use karo, <span class="text-rentify-green">kharidna zaruri nahi</span>
+                </h1>
+                <p class="text-xl sm:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                    Rent anything from tools to electronics in Mumbai. Save money, reduce waste, and earn from your idle items.
+                </p>
+                
+                <!-- Search Bar -->
+                <div class="max-w-2xl mx-auto mb-8">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <input 
+                            type="text"
+                            placeholder="Search items, locations..."
+                            class="w-full pl-16 pr-20 py-5 text-lg bg-white/70 backdrop-blur-md border border-white/50 rounded-3xl focus:outline-none focus:ring-4 focus:ring-rentify-green/20 focus:border-rentify-green shadow-lg transition-all duration-300 placeholder-gray-500"
+                        />
+                        <button class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-rentify-green text-white p-4 rounded-full hover:bg-green-600 transition-all duration-300 shadow-lg hover:shadow-xl">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 9.707A1 1 0 013 9V4z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Popular searches -->
+                    <div class="flex flex-wrap gap-2 justify-center mb-8">
+                        <span class="text-sm text-gray-500">Popular:</span>
+                        <button class="text-sm text-rentify-green hover:underline font-medium">Drill</button>
+                        <button class="text-sm text-rentify-green hover:underline font-medium">Camera</button>
+                        <button class="text-sm text-rentify-green hover:underline font-medium">Speaker</button>
+                        <button class="text-sm text-rentify-green hover:underline font-medium">Treadmill</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section id="about">
-            <h2>About</h2>
-            <p>Add your project description here.</p>
-        </section>
+    <!-- Category Pills -->
+    <section class="py-6 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
+                <!-- Home Repair -->
+                <button class="flex items-center gap-2 px-4 py-3 bg-rentify-green text-white rounded-full hover:bg-green-600 transition-all duration-300 whitespace-nowrap shadow-md hover:shadow-lg transform hover:scale-105">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span class="font-medium">Home Repair</span>
+                </button>
+                
+                <!-- Party & Events -->
+                <button class="flex items-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all duration-300 whitespace-nowrap shadow-md hover:shadow-lg transform hover:scale-105">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                    </svg>
+                    <span class="font-medium">Party & Events</span>
+                </button>
+                
+                <!-- Travel -->
+                <button class="flex items-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all duration-300 whitespace-nowrap shadow-md hover:shadow-lg transform hover:scale-105">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="font-medium">Travel</span>
+                </button>
+                
+                <!-- Content Creation -->
+                <button class="flex items-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all duration-300 whitespace-nowrap shadow-md hover:shadow-lg transform hover:scale-105">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span class="font-medium">Content Creation</span>
+                </button>
+                
+                <!-- Home Setup -->
+                <button class="flex items-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all duration-300 whitespace-nowrap shadow-md hover:shadow-lg transform hover:scale-105">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span class="font-medium">Home Setup</span>
+                </button>
+                
+                <!-- Business -->
+                <button class="flex items-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all duration-300 whitespace-nowrap shadow-md hover:shadow-lg transform hover:scale-105">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    <span class="font-medium">Business</span>
+                </button>
+                
+                <!-- Fitness -->
+                <button class="flex items-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all duration-300 whitespace-nowrap shadow-md hover:shadow-lg transform hover:scale-105">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    <span class="font-medium">Fitness</span>
+                </button>
+                
+                <!-- Rare Use -->
+                <button class="flex items-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-all duration-300 whitespace-nowrap shadow-md hover:shadow-lg transform hover:scale-105">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span class="font-medium">Rare Use</span>
+                </button>
+            </div>
+        </div>
+    </section>
 
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>Add your contact information here.</p>
-        </section>
-    </main>
+    <!-- Trending Nearby -->
+    <section class="py-12 pb-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">
+                Trending Nearby
+            </h2>
+            
+            <div class="flex flex-col gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-6 lg:gap-8">
+                <!-- Mobile vertical list - single column -->
+                <!-- Item Card 1 - Drill Machine (Home Repair) -->
+                <div class="bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer transform hover:scale-105">
+                    <div class="relative aspect-square bg-gray-200">
+                        <img src="https://picsum.photos/seed/drill-machine/300/300.jpg" alt="Drill Machine" class="w-full h-full object-cover">
+                        <!-- Enhanced Location Badge -->
+                        <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full flex items-center gap-2 shadow-md border border-gray-100">
+                            <svg class="h-4 w-4 text-rentify-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-sm font-semibold text-gray-800">Bandra West</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-900 mb-2 text-lg">Drill Machine</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <svg class="h-4 w-4 text-yellow-400 fill-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                            <span class="text-sm text-gray-600 font-medium">4.6</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <span class="text-2xl font-bold text-rentify-green">₹150</span>
+                                <span class="text-sm text-gray-500">/day</span>
+                            </div>
+                            <span class="text-xs bg-rentify-green/10 text-rentify-green px-3 py-1 rounded-full font-medium">Home Repair</span>
+                        </div>
+                        <div class="border-t pt-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <img src="https://picsum.photos/seed/keyur-owner/32/32.jpg" alt="Keyur Malhotra" class="w-8 h-8 rounded-full object-cover">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-sm font-medium text-gray-800">Keyur Malhotra</span>
+                                    <svg class="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="text-xs text-gray-500">Verified Owner</span>
+                        </div>
+                    </div>
+                </div>
 
-    <footer>
-        <p>&copy; 2024 New Project. All rights reserved.</p>
+                <!-- Item Card 2 - Camera (Content Creation) -->
+                <div class="bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer transform hover:scale-105">
+                    <div class="relative aspect-square bg-gray-200">
+                        <img src="https://picsum.photos/seed/sony-camera/300/300.jpg" alt="Sony Camera" class="w-full h-full object-cover">
+                        <!-- Enhanced Location Badge -->
+                        <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full flex items-center gap-2 shadow-md border border-gray-100">
+                            <svg class="h-4 w-4 text-rentify-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-sm font-semibold text-gray-800">Andheri</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-900 mb-2 text-lg">Sony Camera</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <svg class="h-4 w-4 text-yellow-400 fill-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                            <span class="text-sm text-gray-600 font-medium">4.8</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <span class="text-2xl font-bold text-rentify-green">₹299</span>
+                                <span class="text-sm text-gray-500">/day</span>
+                            </div>
+                            <span class="text-xs bg-rentify-green/10 text-rentify-green px-3 py-1 rounded-full font-medium">Content Creation</span>
+                        </div>
+                        <div class="border-t pt-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <img src="https://picsum.photos/seed/priya-owner/32/32.jpg" alt="Priya Patel" class="w-8 h-8 rounded-full object-cover">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-sm font-medium text-gray-800">Priya Patel</span>
+                                    <svg class="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="text-xs text-gray-500">Verified Owner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item Card 3 - Speaker (Party & Events) -->
+                <div class="bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer transform hover:scale-105">
+                    <div class="relative aspect-square bg-gray-200">
+                        <img src="https://picsum.photos/seed/party-speaker/300/300.jpg" alt="Party Speaker" class="w-full h-full object-cover">
+                        <!-- Enhanced Location Badge -->
+                        <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full flex items-center gap-2 shadow-md border border-gray-100">
+                            <svg class="h-4 w-4 text-rentify-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-sm font-semibold text-gray-800">Juhu</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-900 mb-2 text-lg">Party Speaker</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <svg class="h-4 w-4 text-yellow-400 fill-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                            <span class="text-sm text-gray-600 font-medium">4.7</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <span class="text-2xl font-bold text-rentify-green">₹199</span>
+                                <span class="text-sm text-gray-500">/day</span>
+                            </div>
+                            <span class="text-xs bg-rentify-green/10 text-rentify-green px-3 py-1 rounded-full font-medium">Party & Events</span>
+                        </div>
+                        <div class="border-t pt-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <img src="https://picsum.photos/seed/amit-owner/32/32.jpg" alt="Amit Desai" class="w-8 h-8 rounded-full object-cover">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-sm font-medium text-gray-800">Amit Desai</span>
+                                    <svg class="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="text-xs text-gray-500">Verified Owner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item Card 4 - Treadmill (Fitness) -->
+                <div class="bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer transform hover:scale-105">
+                    <div class="relative aspect-square bg-gray-200">
+                        <img src="https://picsum.photos/seed/treadmill/300/300.jpg" alt="Treadmill" class="w-full h-full object-cover">
+                        <!-- Enhanced Location Badge -->
+                        <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full flex items-center gap-2 shadow-md border border-gray-100">
+                            <svg class="h-4 w-4 text-rentify-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-sm font-semibold text-gray-800">Worli</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-900 mb-2 text-lg">Treadmill</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <svg class="h-4 w-4 text-yellow-400 fill-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                            <span class="text-sm text-gray-600 font-medium">4.5</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <span class="text-2xl font-bold text-rentify-green">₹249</span>
+                                <span class="text-sm text-gray-500">/day</span>
+                            </div>
+                            <span class="text-xs bg-rentify-green/10 text-rentify-green px-3 py-1 rounded-full font-medium">Fitness</span>
+                        </div>
+                        <div class="border-t pt-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <img src="https://picsum.photos/seed/rahul-owner/32/32.jpg" alt="Rahul Sharma" class="w-8 h-8 rounded-full object-cover">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-sm font-medium text-gray-800">Rahul Sharma</span>
+                                    <svg class="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="text-xs text-gray-500">Verified Owner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item Card 5 - Scooter (Travel) -->
+                <div class="bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer transform hover:scale-105">
+                    <div class="relative aspect-square bg-gray-200">
+                        <img src="https://picsum.photos/seed/scooter/300/300.jpg" alt="Scooter" class="w-full h-full object-cover">
+                        <!-- Enhanced Location Badge -->
+                        <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full flex items-center gap-2 shadow-md border border-gray-100">
+                            <svg class="h-4 w-4 text-rentify-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-sm font-semibold text-gray-800">Bandra</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-900 mb-2 text-lg">Scooter</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <svg class="h-4 w-4 text-yellow-400 fill-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                            <span class="text-sm text-gray-600 font-medium">4.9</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <span class="text-2xl font-bold text-rentify-green">₹399</span>
+                                <span class="text-sm text-gray-500">/day</span>
+                            </div>
+                            <span class="text-xs bg-rentify-green/10 text-rentify-green px-3 py-1 rounded-full font-medium">Travel</span>
+                        </div>
+                        <div class="border-t pt-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <img src="https://picsum.photos/seed/nikhil-owner/32/32.jpg" alt="Nikhil Verma" class="w-8 h-8 rounded-full object-cover">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-sm font-medium text-gray-800">Nikhil Verma</span>
+                                    <svg class="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="text-xs text-gray-500">Verified Owner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item Card 6 - Coffee Machine (Business) -->
+                <div class="bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer transform hover:scale-105">
+                    <div class="relative aspect-square bg-gray-200">
+                        <img src="https://picsum.photos/seed/coffee-machine/300/300.jpg" alt="Coffee Machine" class="w-full h-full object-cover">
+                        <!-- Enhanced Location Badge -->
+                        <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full flex items-center gap-2 shadow-md border border-gray-100">
+                            <svg class="h-4 w-4 text-rentify-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-sm font-semibold text-gray-800">Powai</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-900 mb-2 text-lg">Coffee Machine</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <svg class="h-4 w-4 text-yellow-400 fill-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                            <span class="text-sm text-gray-600 font-medium">4.6</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <span class="text-2xl font-bold text-rentify-green">₹179</span>
+                                <span class="text-sm text-gray-500">/day</span>
+                            </div>
+                            <span class="text-xs bg-rentify-green/10 text-rentify-green px-3 py-1 rounded-full font-medium">Business</span>
+                        </div>
+                        <div class="border-t pt-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <img src="https://picsum.photos/seed/anjali-owner/32/32.jpg" alt="Anjali Mehta" class="w-8 h-8 rounded-full object-cover">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-sm font-medium text-gray-800">Anjali Mehta</span>
+                                    <svg class="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="text-xs text-gray-500">Verified Owner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item Card 7 - Mattress (Home Setup) -->
+                <div class="bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer transform hover:scale-105">
+                    <div class="relative aspect-square bg-gray-200">
+                        <img src="https://picsum.photos/seed/mattress/300/300.jpg" alt="Mattress" class="w-full h-full object-cover">
+                        <!-- Enhanced Location Badge -->
+                        <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full flex items-center gap-2 shadow-md border border-gray-100">
+                            <svg class="h-4 w-4 text-rentify-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-sm font-semibold text-gray-800">Kurla</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-900 mb-2 text-lg">Mattress</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <svg class="h-4 w-4 text-yellow-400 fill-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                            <span class="text-sm text-gray-600 font-medium">4.4</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <span class="text-2xl font-bold text-rentify-green">₹89</span>
+                                <span class="text-sm text-gray-500">/day</span>
+                            </div>
+                            <span class="text-xs bg-rentify-green/10 text-rentify-green px-3 py-1 rounded-full font-medium">Home Setup</span>
+                        </div>
+                        <div class="border-t pt-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <img src="https://picsum.photos/seed/rajesh-owner/32/32.jpg" alt="Rajesh Kumar" class="w-8 h-8 rounded-full object-cover">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-sm font-medium text-gray-800">Rajesh Kumar</span>
+                                    <svg class="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="text-xs text-gray-500">Verified Owner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item Card 8 - Wheelchair (Rare Use) -->
+                <div class="bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer transform hover:scale-105">
+                    <div class="relative aspect-square bg-gray-200">
+                        <img src="https://picsum.photos/seed/wheelchair/300/300.jpg" alt="Wheelchair" class="w-full h-full object-cover">
+                        <!-- Enhanced Location Badge -->
+                        <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full flex items-center gap-2 shadow-md border border-gray-100">
+                            <svg class="h-4 w-4 text-rentify-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-sm font-semibold text-gray-800">Goregaon</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-900 mb-2 text-lg">Wheelchair</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <svg class="h-4 w-4 text-yellow-400 fill-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                            <span class="text-sm text-gray-600 font-medium">4.8</span>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <span class="text-2xl font-bold text-rentify-green">₹129</span>
+                                <span class="text-sm text-gray-500">/day</span>
+                            </div>
+                            <span class="text-xs bg-rentify-green/10 text-rentify-green px-3 py-1 rounded-full font-medium">Rare Use</span>
+                        </div>
+                        <div class="border-t pt-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <img src="https://picsum.photos/seed/sunita-owner/32/32.jpg" alt="Sunita Rao" class="w-8 h-8 rounded-full object-cover">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-sm font-medium text-gray-800">Sunita Rao</span>
+                                    <svg class="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="text-xs text-gray-500">Verified Owner</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Snippet -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Items near you</h2>
+                <p class="text-lg text-gray-600">Find rental items in your neighborhood</p>
+            </div>
+            
+            <!-- Map Container -->
+            <div class="relative bg-gray-100 rounded-3xl overflow-hidden" style="height: 400px;">
+                <!-- Map Background -->
+                <div class="absolute inset-0 grid-background opacity-30"></div>
+                
+                <!-- Green Dots for Items -->
+                <div class="absolute top-1/4 left-1/4 w-4 h-4 bg-rentify-green rounded-full shadow-lg animate-pulse"></div>
+                <div class="absolute top-1/3 right-1/3 w-4 h-4 bg-rentify-green rounded-full shadow-lg animate-pulse"></div>
+                <div class="absolute bottom-1/3 left-1/3 w-4 h-4 bg-rentify-green rounded-full shadow-lg animate-pulse"></div>
+                <div class="absolute top-1/2 left-1/2 w-4 h-4 bg-rentify-green rounded-full shadow-lg animate-pulse"></div>
+                <div class="absolute bottom-1/4 right-1/4 w-4 h-4 bg-rentify-green rounded-full shadow-lg animate-pulse"></div>
+                <div class="absolute top-2/3 left-2/3 w-4 h-4 bg-rentify-green rounded-full shadow-lg animate-pulse"></div>
+                <div class="absolute bottom-1/2 left-1/4 w-4 h-4 bg-rentify-green rounded-full shadow-lg animate-pulse"></div>
+                
+                <!-- Center Location -->
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div class="w-6 h-6 bg-blue-500 rounded-full shadow-lg border-4 border-white"></div>
+                </div>
+                
+                <!-- Start Browsing Button -->
+                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+                    <button class="bg-rentify-green text-white px-8 py-4 rounded-full hover:bg-green-600 transition-all duration-300 shadow-lg hover:shadow-xl text-lg font-bold transform hover:scale-105">
+                        Start Browsing
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Earn Extra Banner -->
+    <section class="py-16 bg-rentify-green">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-white mb-4">Earn extra income from your idle items</h2>
+                <p class="text-xl text-green-50 mb-8 max-w-2xl mx-auto">
+                    Turn your unused items into cash. List them on Rentify and start earning today.
+                </p>
+                <button class="bg-white text-rentify-green px-8 py-4 rounded-full hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl text-lg font-bold transform hover:scale-105">
+                    Start Earning
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Rentify?</h2>
+                <p class="text-lg text-gray-600">Safe, reliable, and convenient</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Trust Card 1 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-rentify-green rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Verified Users</h3>
+                    <p class="text-gray-600">All users are verified for your safety and peace of mind</p>
+                </div>
+                
+                <!-- Trust Card 2 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-rentify-green rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Secure Payments</h3>
+                    <p class="text-gray-600">Safe and secure payment processing with multiple options</p>
+                </div>
+                
+                <!-- Trust Card 3 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-rentify-green rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Flexible Rentals</h3>
+                    <p class="text-gray-600">Rent for as long or as short as you need</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist Footer -->
+    <section class="py-16 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-white mb-4">Join the Waitlist</h2>
+                <p class="text-xl text-gray-300 mb-8">Be the first to know when we launch in your area</p>
+                
+                <!-- Waitlist Form -->
+                <form id="waitlist-form" class="max-w-md mx-auto">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <input 
+                            type="email" 
+                            id="email-input"
+                            placeholder="Enter your email" 
+                            class="flex-1 px-4 py-3 rounded-full border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-rentify-green focus:border-transparent"
+                            required
+                        />
+                        <button 
+                            type="submit"
+                            class="bg-rentify-green text-white px-8 py-3 rounded-full hover:bg-green-600 transition-all duration-300 font-semibold"
+                        >
+                            Join Now
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Success Message -->
+                <div id="success-message" class="hidden mt-6 p-4 bg-green-600 text-white rounded-full max-w-md mx-auto">
+                    <p class="font-semibold">🎉 Thanks for joining! We'll keep you updated.</p>
+                </div>
+                
+                <p class="text-gray-400 mt-8 text-sm">
+                    By joining, you agree to receive updates from Rentify
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <p class="text-gray-400 text-sm">
+                    © 2024 Rentify. All rights reserved. Made with ❤️ in Mumbai
+                </p>
+            </div>
+        </div>
     </footer>
 
-    <script src="scripts/main.js"></script>
+    <script>
+        // Waitlist form handling
+        document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailInput = document.getElementById('email-input');
+            const successMessage = document.getElementById('success-message');
+            
+            // Show success message
+            successMessage.classList.remove('hidden');
+            
+            // Clear form
+            emailInput.value = '';
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+            }, 5000);
+        });
+    </script>
 </body>
 </html>
