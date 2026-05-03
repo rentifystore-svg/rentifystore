@@ -70,6 +70,7 @@ export default function TrendingNearby() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {trendingItems.map((item) => (
             <ItemCard
+              id={item.id}
               key={item.id}
               title={item.title}
               price={item.price}
