@@ -1,0 +1,54 @@
+# Git Commands for Pushing Latest Changes
+# Deploy Rentify high-fidelity app demo to GitHub
+
+# Step 1: Navigate to your project directory
+cd "c:\Users\paren\CascadeProjects\windsurf-project\new-project"
+
+# Step 2: Check current Git status
+git status
+
+# Step 3: Add all new files to your existing repository
+git add .
+
+# Step 4: Create commit with high-fidelity changes
+git commit -m "High-Fidelity Update: Complete code-based app demo recreation with buttery smooth animations
+
+- Added rentify-high-fidelity.html with complete 10-screen app demo
+- iPhone 15 frame with realistic styling and animations
+- CSS-animated logo with bounce effect
+- Interactive navigation with hover effects
+- Search & categories with working filters
+- Map page with animated pins
+- Profile page with verified badges
+- Waitlist form with Netlify integration
+- No external images required - pure CSS recreation
+- Buttery smooth 60fps animations throughout
+- Mobile-responsive design
+- Added ACCESS-HIGH-FIDELITY.bat for direct browser access"
+
+# Step 5: Push to GitHub repository
+git push origin main
+
+# Alternative: If you have a different branch name
+git push origin main
+
+# Step 6: Deploy to Netlify
+# 1. Go to https://netlify.com
+# 2. Sign up with GitHub
+# 3. Click "New site from Git"
+# 4. Select GitHub
+# 5. Choose rentifystore-svg/rentifystore repository
+# 6. Build settings:
+#    Build command: echo "No build needed"
+#    Publish directory: .
+# 7. Click "Deploy site"
+
+# Your site will be live at: https://rentify-app-demo.netlify.app
+# Repository URL: https://github.com/rentifystore-svg/rentifystore
+
+# Files being pushed:
+# - rentify-high-fidelity.html (NEW - Complete app demo)
+# - ACCESS-HIGH-FIDELITY.bat (NEW - Direct access)
+# - high-fidelity-recreation.md (NEW - Documentation)
+# - index.html (Updated with image path fixes)
+# - All deployment scripts and documentation

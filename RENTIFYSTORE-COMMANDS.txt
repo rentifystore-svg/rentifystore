@@ -1,0 +1,44 @@
+# Git Commands for rentifystore-svg/rentifystore Repository
+# Deploy Rentify app demo to your existing GitHub repository
+
+# Step 1: Navigate to your project directory
+cd "c:\Users\paren\CascadeProjects\windsurf-project\new-project"
+
+# Step 2: Check if this is already a Git repository
+git status
+
+# Step 3: If not a Git repository, initialize it
+git init
+
+# Step 4: Add all files to the repository
+git add .
+
+# Step 5: Commit the changes
+git commit -m "Update: Rentify app demo with interactive iPhone showcase and deployment-ready files"
+
+# Step 6: Connect to your existing GitHub repository
+git remote add origin https://github.com/rentifystore-svg/rentifystore.git
+
+# Step 7: Set main branch and push to GitHub
+git branch -M main
+git push -u origin main
+
+# Alternative: If you already have a remote configured
+git remote set-url origin https://github.com/rentifystore-svg/rentifystore.git
+git push origin main
+
+# Step 8: Deploy to Netlify
+# 1. Go to https://netlify.com
+# 2. Sign up with GitHub
+# 3. Click "New site from Git"
+# 4. Select GitHub
+# 5. Choose rentifystore-svg/rentifystore repository
+# 6. Build settings:
+#    Build command: echo "No build needed"
+#    Publish directory: .
+# 7. Click "Deploy site"
+
+# Your site will be live at: https://rentify-app-demo.netlify.app
+# Or you can configure custom domain in Netlify settings
+
+# Repository URL: https://github.com/rentifystore-svg/rentifystore

@@ -1,0 +1,44 @@
+# Git Setup Commands for Rentify App Demo
+# Copy and paste these commands after installing Git
+
+# Step 1: Navigate to project directory
+cd "c:\Users\paren\CascadeProjects\windsurf-project\new-project"
+
+# Step 2: Initialize Git repository
+git init
+
+# Step 3: Configure Git (first time only)
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# Step 4: Add all files to Git
+git add .
+
+# Step 5: Create initial commit
+git commit -m "Initial commit: Rentify app demo landing page with interactive iPhone showcase"
+
+# Step 6: Create GitHub repository
+# Go to https://github.com
+# Click "New repository"
+# Name: rentify-app-demo
+# Description: Rentify app demo landing page with interactive iPhone showcase
+# Make it Public
+# Click "Create repository"
+
+# Step 7: Connect to GitHub (replace YOUR_USERNAME)
+git remote add origin https://github.com/YOUR_USERNAME/rentify-app-demo.git
+git branch -M main
+git push -u origin main
+
+# Step 8: Deploy to Netlify
+# Go to https://netlify.com
+# Sign up with GitHub
+# Click "New site from Git"
+# Select GitHub
+# Choose rentify-app-demo repository
+# Build settings:
+#   Build command: echo "No build needed"
+#   Publish directory: .
+# Click "Deploy site"
+
+# Your site will be live at: https://rentify-app-demo.netlify.app

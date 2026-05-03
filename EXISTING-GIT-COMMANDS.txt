@@ -1,0 +1,41 @@
+# Git Commands for Existing Repository
+# Use these commands with your existing Git repository
+
+# Step 1: Navigate to your project directory
+cd "c:\Users\paren\CascadeProjects\windsurf-project\new-project"
+
+# Step 2: Check current Git status
+git status
+
+# Step 3: Add all new files to your existing repository
+git add .
+
+# Step 4: Commit the changes
+git commit -m "Update: Rentify app demo with interactive iPhone showcase and deployment-ready files"
+
+# Step 5: Check if remote is already configured
+git remote -v
+
+# Step 6: If no remote exists, add GitHub repository
+# (replace YOUR_USERNAME with your actual GitHub username)
+git remote add origin https://github.com/YOUR_USERNAME/rentify-app-demo.git
+
+# Step 7: Set main branch and push to GitHub
+git branch -M main
+git push -u origin main
+
+# Step 8: Deploy to Netlify
+# Go to https://netlify.com
+# Sign up with GitHub
+# Click "New site from Git"
+# Select GitHub
+# Choose your repository
+# Build settings:
+#   Build command: echo "No build needed"
+#   Publish directory: .
+# Click "Deploy site"
+
+# Your site will be live at: https://rentify-app-demo.netlify.app
+
+# Alternative: If you already have a remote configured
+git push origin main
